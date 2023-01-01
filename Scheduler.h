@@ -56,9 +56,12 @@ class Scheduler : public MinHeap
       
    }
 
-   // void printSchedular(){
-   //    for(int i = 0; i < size; i++){
-   //       cout << "processId" << p
-   //    }
-   // }
+   void FCFS(){
+      int size;
+      cout << "enter size"<< endl;
+      cin >> size;
+      Process_Creator abc(size);
+
+      
+   }
 };
