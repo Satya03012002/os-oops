@@ -2,7 +2,7 @@ using namespace std;
 #include<iostream>
 #include "Process.h"
 #include <cstdlib>
-
+#include <bits/stdc++.h>
 class Process_Creator : public Process
 {
     int size;

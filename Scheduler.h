@@ -1,14 +1,19 @@
 using namespace std;
 #include<iostream>
-#include "MinHeap.h"
 
-class Scheduler : public MinHeap
+#include "Queue.h"
+#include <bits/stdc++.h>
+
+
+class Scheduler : public Queue
 {
      public:
      Scheduler(){
       
 
      }
+
+
    void FCFS()
    {
       int size;
@@ -56,12 +61,121 @@ class Scheduler : public MinHeap
       
    }
 
-   void FCFS(){
+   void RoundRobin(){
       int size;
       cout << "enter size"<< endl;
       cin >> size;
       Process_Creator abc(size);
 
+      int terminal_time;
+      cout << "enter terminal_time" << endl;
+      cin >> terminal_time;
+
+
+      Queue mno(size);
+     
+      MinHeap pkb(size);
+
+      pkb.BuildMinHeap(abc.arr, size);
+      int k = size;
+      int l = 0;
+     
+      
+         
+      Process p = pkb.deque(abc.arr);
+    
+      // int mm = p.getProcess_id();
+      // cout << "pid  =  " <<  mm <<endl;
+      // mno.hii(&p);
+      mno.enque(&p);
+      
+      
+       int time = 0;
+       cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
+      while (mno.isempty() != 1)
+      {
+        
+       if (l == 0)
+       {
+         Process w = mno.deque();
+        
+         
+         w.setResponse_time(w.getArrival_time());
+         
+         // time += terminal_time;
+         int temp = w.getBurst_time() - terminal_time;
+         cout << "temp -- >" << temp << endl;
+         if (temp > 0)
+         {
+             time += terminal_time;
+            w.setBurst_time(temp);
+            mno.enque(&w);
+         }
+         else
+         {
+            time += w.getBurst_time();
+            // w.setCompletion_time(time);
+            // w.setTurn_around_time(time - p.getArrival_time());
+            // w.setWaiting_time(w.getCompletion_time() - w.getTurn_around_time());
+            // cout << w.getProcess_id()<< "    " << w.getArrival_time() << "    " << w.getBurst_time() << "    " << w.getCompletion_time() << "    " << w.getTurn_around_time() << "    " << w.getWaiting_time() << "    " << w.getResponse_time() << endl;
+            
+         }
+         l++;
+         
+       }
+      //  else
+      //  {
+      //    if (pkb.isfull() != 1)
+      //    {
+      //       int key = 0;
+      //       while (key == 0)
+      //       {
+
+      //          Process j = pkb.deque(abc.arr);
+               
+      //          if (j.getArrival_time() < time)
+      //          {
+      //             mno.enque(&j);
+      //          }
+      //          else
+      //          {
+      //             mno.reverse(abc.arr);
+      //                 key = -1;
+      //          }
+      //       }
+      //    }
+
+      //    Process curr = mno.deque();
+
+
+      //    if(curr.getResponse_time() == 0){
+      //         curr.setResponse_time(time);
+      //    }
+       
+         
+
+      //    time += terminal_time;
+      //    int temp = curr.getBurst_time() - terminal_time;
+      //    if (temp > 0)
+      //    {
+      //        time += terminal_time;
+      //       curr.setBurst_time(temp);
+      //       mno.enque(&curr);
+      //    }
+      //    else
+      //    {
+      //       time += curr.getBurst_time();
+      //       curr.setCompletion_time(time);
+      //       curr.setTurn_around_time(time - p.getArrival_time());
+      //       curr.setWaiting_time(curr.getCompletion_time() - curr.getTurn_around_time());
+      //       cout << curr.getProcess_id()<< "    " << curr.getArrival_time() << "    " << curr.getBurst_time() << "    " << curr.getCompletion_time() << "    " << curr.getTurn_around_time() << "    " << curr.getWaiting_time() << "    " << curr.getResponse_time() << endl;
+            
+      //    }
+
+      //  }
+
+        
+      }
       
    }
 };

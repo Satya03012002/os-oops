@@ -1,6 +1,7 @@
 using namespace std;
 #include <iostream>
 #include "Process_Creator.h"
+#include <bits/stdc++.h>
 
 
 class MinHeap :public  Process_Creator
@@ -8,6 +9,7 @@ class MinHeap :public  Process_Creator
 
     int size ;
     int stop;
+    int prev = -1;
     public:
     MinHeap(){
         size = -1;
@@ -62,12 +64,24 @@ class MinHeap :public  Process_Creator
         }
         else
         {
+            prev =  min;
             return;
         }
     }
 
+    int isfull(){
+        if(stop == -1){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+  
+
     Process deque(Process *arr )
     {
+        
 
         if (size == -1)
         {
@@ -75,6 +89,7 @@ class MinHeap :public  Process_Creator
 
             printf("arr is already empty\n");
             Process null;
+             cout << "return from size" <<endl; 
             return null;
         }
 
@@ -98,7 +113,7 @@ class MinHeap :public  Process_Creator
             MinHeapify(arr, 0, size);
              size--;
 
-
+            cout << "return from deque -p" <<endl; 
             return p;
         }
     }
@@ -108,7 +123,7 @@ class MinHeap :public  Process_Creator
        cout << "enter in build min heap" << endl;
         for (int i = len / 2; i >= 0; i--)
         {
-
+           
             MinHeapify(arr, i, len);
         }
 
@@ -122,5 +137,13 @@ class MinHeap :public  Process_Creator
       printf("\n\n");
        
         return;
+    }
+
+      void reverse(Process *arr){
+        size++;
+        BuildMinHeap(arr,size);
+        // swap(arr, 0, prev);
+        //swap(arr,0,size);
+
     }
 };

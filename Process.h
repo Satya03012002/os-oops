@@ -1,5 +1,6 @@
 using namespace std;
 #include<iostream>
+#include <bits/stdc++.h>
 
 class Process{
 
@@ -14,6 +15,7 @@ completion_time = 0;
 turn_around_time = 0;
 waiting_time = 0;
 response_time = 0;
+
 }
 // Process(int id){
 // process_id = id;
@@ -68,6 +70,7 @@ int getWaiting_time(){
 int getResponse_time(){
     return response_time;
 }
+
 void print(){
     cout << process_id << arrival_time << burst_time << completion_time << turn_around_time << waiting_time << response_time << endl;
 }
