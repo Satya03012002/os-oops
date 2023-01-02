@@ -50,6 +50,8 @@ int quesize(){
 //     cout << "helloooo" << endl;
 //  }
 void enque(Process* q){
+
+    cout << "enqueue ander aa ya"<<endl;
     if(isfullque()){
         printf("overflow");
     }
@@ -78,6 +80,8 @@ void enque(Process* q){
 // del element in queue // default hai ki first come first go
 
 Process deque(){
+
+    cout << "dequeue ander aa ya"<<endl;
      Process q;
     int data =-1;
     if(isempty())

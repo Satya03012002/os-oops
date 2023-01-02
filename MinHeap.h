@@ -7,12 +7,12 @@ using namespace std;
 class MinHeap :public  Process_Creator
 {
 
-    int key = 0;
+    
     int stop;
     int prev = -1;
-    
-    public:
     int size ;
+    public:
+    
     MinHeap(){
         size = -1;
         stop = 0;
@@ -115,7 +115,7 @@ class MinHeap :public  Process_Creator
             swap(arr, 0, size);
            
             MinHeapify(arr, 0, size);
-            key = size;
+           
              size--;
 
 
