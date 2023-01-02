@@ -7,8 +7,9 @@ class Queue: public MinHeap{
 
     int front,rear;// rare- piche wala
     int capacity;
-   Process *arrq;
+//    Process *arrq;
     public:
+     Process *arrq = (Process *)malloc(capacity * sizeof(Process));
     Queue(){
 
     }
@@ -40,14 +41,14 @@ int isfullque(){
 int quesize(){
     return((capacity -front + rear +1)% capacity);// may be we can direct write q->rear - q->front +1
 }
-//enqueue ye bhi default hai ki data rear element me hi jaayga
+// //enqueue ye bhi default hai ki data rear element me hi jaayga
  
- void hii(Process* p){
+//  void hii(Process* p){
     
-    int mm = p->getProcess_id();
-      cout << "pid  =  " <<  mm <<endl;
-    cout << "helloooo" << endl;
- }
+//     int mm = p->getProcess_id();
+//       cout << "pid  =  " <<  mm <<endl;
+//     cout << "helloooo" << endl;
+//  }
 void enque(Process* q){
     if(isfullque()){
         printf("overflow");
@@ -55,22 +56,23 @@ void enque(Process* q){
     
     else{
         rear= rear+1%capacity;
-         
-        // arrq[rear]= *q;
-        arr[rear].setProcess_id(q->getProcess_id());
-        arr[rear].setArrival_time(q->getArrival_time());
-        arr[rear].setBurst_time(q->getBurst_time());
-        arr[rear].setCompletion_time(q->getCompletion_time());
-        arr[rear].setTurn_around_time(q->getTurn_around_time());
-        arr[rear].setWaiting_time(q->getWaiting_time());
-        arr[rear].setResponse_time(q->getResponse_time());
+        int mm = q->getProcess_id();
+        arrq[rear].setProcess_id(q->getProcess_id());
+        arrq[rear].setArrival_time(q->getArrival_time());
+        arrq[rear].setBurst_time(q->getBurst_time());
+        arrq[rear].setCompletion_time(q->getCompletion_time());
+        arrq[rear].setTurn_around_time(q->getTurn_around_time());
+        arrq[rear].setWaiting_time(q->getWaiting_time());
+        arrq[rear].setResponse_time(q->getResponse_time());
+        
+        
 
         
         if(front==-1){
             front=rear;
         }
     }
-    cout << "add ho gyA" << endl;
+    
 }
 
 // del element in queue // default hai ki first come first go
@@ -86,7 +88,7 @@ Process deque(){
     }
     else
     {
-        
+        // Process q = arr[front];
         q.setProcess_id(arrq[front].getProcess_id());
          q.setArrival_time(arrq[front].getArrival_time());
          q.setBurst_time(arrq[front].getBurst_time());
@@ -94,16 +96,27 @@ Process deque(){
         q.setTurn_around_time(arrq[front].getTurn_around_time());
         q.setWaiting_time(arrq[front].getWaiting_time());
         q.setResponse_time(arrq[front].getResponse_time());
-        cout << "P.waiting" << arr[front].getWaiting_time()<< endl;
+        // cout<< "q - burst" << q.getBurst_time()<<endl;
+        // cout<< "q - burst" << q.getProcess_id()<<endl;
+        // cout<< "q - burst" << q.getArrival_time()<<endl;
+        // cout<< "q - burst" << q.getWaiting_time()<<endl;
+        // cout<< "q - burst" << q.getResponse_time()<<endl;
+        // cout<< "q - burst" << q.getTurn_around_time()<<endl;
+        // cout<< "q - burst" << q.getCompletion_time()<<endl;
+
+        
+     
         if(front==rear){
             front = rear = -1;
         }
         else{
             front = (front +1)%capacity;// taki agar mera front rear k barabar ho jaye tab front 0 ho jaaye
         }
+
+        return q;
     }
-    cout << "bhej raha hu" << endl;
-    return q;
+    
+    
 }
 
 

@@ -7,15 +7,17 @@ using namespace std;
 class MinHeap :public  Process_Creator
 {
 
-    int size ;
+    int key = 0;
     int stop;
     int prev = -1;
+    
     public:
+    int size ;
     MinHeap(){
         size = -1;
         stop = 0;
     }
-     MinHeap(int x){
+    MinHeap(int x){
         size = x-1;
         stop = 0;
     }
@@ -76,13 +78,21 @@ class MinHeap :public  Process_Creator
             return 0;
         }
     }
+  void reverse(Process *arr){
+    size++;
+       cout << "enter into reverse function" << endl;
+       cout << "size- in reverse function-->" << size << endl;
+       
+        swap(arr, 0, prev);
+        swap(arr,0,size);
 
+    }
   
 
     Process deque(Process *arr )
     {
         
-
+        cout << "size-->" << size <<endl;
         if (size == -1)
         {
             stop = -1;
@@ -90,60 +100,44 @@ class MinHeap :public  Process_Creator
             printf("arr is already empty\n");
             Process null;
              cout << "return from size" <<endl; 
+             null.setProcess_id(-1);
             return null;
+
         }
 
         else
         {
-    //          cout<< "size -->" << size << endl;
-    //           cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
-    //   for(int i = 0; i <= size; i++){
-    //      // cout << "print" << endl;
-    //      cout << arr[i].getProcess_id()<< "    " << arr[i].getArrival_time() << "    " << arr[i].getBurst_time() << "    " << arr[i].getCompletion_time() << "    " << arr[i].getTurn_around_time() << "    " << arr[i].getWaiting_time() << "    " << arr[i].getResponse_time() << endl;
-    //   } 
-
+   
              
-            // printf("\n deqq\n");
+          
             Process p = arr[0];
             
             swap(arr, 0, size);
-            // cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
-            // cout << p.getProcess_id()<< "    " << p.getArrival_time() << "    " << p.getBurst_time() << "    " << p.getCompletion_time() << "    " << p.getTurn_around_time() << "    " << p.getWaiting_time() << "    " << p.getResponse_time() << endl;
            
             MinHeapify(arr, 0, size);
+            key = size;
              size--;
 
-            cout << "return from deque -p" <<endl; 
+
+            
             return p;
         }
     }
 
     void BuildMinHeap(Process *arr, int len)
     {
-       cout << "enter in build min heap" << endl;
+   
         for (int i = len / 2; i >= 0; i--)
         {
            
             MinHeapify(arr, i, len);
         }
 
-        
-       cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
-      for(int i = 0; i < len; i++){
-         // cout << "print" << endl;
-         cout << arr[i].getProcess_id()<< "    " << arr[i].getArrival_time() << "    " << arr[i].getBurst_time() << "    " << arr[i].getCompletion_time() << "    " << arr[i].getTurn_around_time() << "    " << arr[i].getWaiting_time() << "    " << arr[i].getResponse_time() << endl;
-      } 
 
       printf("\n\n");
        
         return;
     }
 
-      void reverse(Process *arr){
-        size++;
-        BuildMinHeap(arr,size);
-        // swap(arr, 0, prev);
-        //swap(arr,0,size);
-
-    }
+  
 };
