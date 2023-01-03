@@ -73,24 +73,59 @@ class RedBlackTree{
             
             root = node;
             root.black = false;
-            root.isLeftChild = false;
+            
             return root;
         }else if(root.key == newNode.key){
             cout<<"already this key is present"<< endl;
             return root;
         }
         else if(root.key < newNode.key){
-            newNode.parent = root.right;
+            newNode.parent = root;
             root.right = recAdd(root.right, newNode);
+            root.right.isLeftChild = false;
             
 
         }else{
-            newNode.parent = root.left;
+            newNode.parent = root;
             root.left = recAdd(root.left,newNode);
+            root.left.isLeftChild = true;
         }
         return root;
 
      }
+
+     void correctTree(Node node){
+        
+        if(node.parent.isLeftChild ){ // aunt is grandparent right child
+         if(node.parent.parent.right == NULL || node.parent.parent.right.black == true ) {// ham null ko black hi consider karte hai or agar aunt black hoga to we do rotation
+            return rotate(node);
+         }
+         if(node.parent.parent.right != NULL && node.parent.parent.right.black == false ) { // aunt is red means we do color flip
+          
+          node.parent.parent.black = false;
+          node.parent.parent.right.black = true;
+          node.parent.parent.black = true;
+
+         }
+         
+
+        }else{
+            if(node.parent.parent.left == NULL || node.parent.parent.left.black == true ) {// ham null ko black hi consider karte hai or agar aunt black hoga to we do rotation
+            return rotate(node);
+         }
+         if(node.parent.parent.left != NULL && node.parent.parent.left.black == false ) { // aunt is red means we do color flip
+          
+          node.parent.parent.black = false;
+          node.parent.parent.left.black = true;
+          node.parent.parent.black = true;
+
+         }
+         
+        }
+
+     }
+
+
      void checkVoilation(Node node){
         if(node == root){
             return;
