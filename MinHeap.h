@@ -79,9 +79,9 @@ class MinHeap :public  Process_Creator
         }
     }
   void reverse(Process *arr){
-    size++;
-       cout << "enter into reverse function" << endl;
-       cout << "size- in reverse function-->" << size << endl;
+    ++size;
+    //    cout << "enter into reverse function" << endl;
+    //    cout << "size- in reverse function-->" << size << endl;
        
         swap(arr, 0, prev);
         swap(arr,0,size);
@@ -92,7 +92,7 @@ class MinHeap :public  Process_Creator
     Process deque(Process *arr )
     {
         
-        cout << "size-->" << size <<endl;
+       
         if (size == -1)
         {
             stop = -1;
@@ -111,9 +111,10 @@ class MinHeap :public  Process_Creator
              
           
             Process p = arr[0];
+            //  cout << " in dqueue heapsize-->" << size << "PID --> " << p.getProcess_id()<<endl;
             
             swap(arr, 0, size);
-           
+            // size--;
             MinHeapify(arr, 0, size);
            
              size--;

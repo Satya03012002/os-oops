@@ -26,7 +26,7 @@ class Queue: public MinHeap{
     int isempty(){
         if (front == -1)
         {
-            return (1);
+            return 1;
         }
         return (0);
     }
@@ -51,13 +51,14 @@ int quesize(){
 //  }
 void enque(Process* q){
 
-    cout << "enqueue ander aa ya"<<endl;
+    // cout << "enqueue ander aa ya"<<endl;
     if(isfullque()){
-        printf("overflow");
+        printf("overflow\n");
     }
     
     else{
-        rear= rear+1%capacity;
+        rear= (rear+1)%capacity;
+        // cout << "rear----------------"<<rear<<endl;
         int mm = q->getProcess_id();
         arrq[rear].setProcess_id(q->getProcess_id());
         arrq[rear].setArrival_time(q->getArrival_time());
@@ -66,7 +67,7 @@ void enque(Process* q){
         arrq[rear].setTurn_around_time(q->getTurn_around_time());
         arrq[rear].setWaiting_time(q->getWaiting_time());
         arrq[rear].setResponse_time(q->getResponse_time());
-        
+        // cout<< " enque in queue  PID- " << arrq[rear].getProcess_id()<<endl;
         
 
         
@@ -81,12 +82,12 @@ void enque(Process* q){
 
 Process deque(){
 
-    cout << "dequeue ander aa ya"<<endl;
+    // cout << "dequeue ander aa ya"<<endl;
      Process q;
-    int data =-1;
-    if(isempty())
+    
+    if(front == -1)
     {
-        printf("queue is empty");
+        printf("queue is empty\n");
         Process null;
         return null;
     }
@@ -107,7 +108,8 @@ Process deque(){
         // cout<< "q - burst" << q.getResponse_time()<<endl;
         // cout<< "q - burst" << q.getTurn_around_time()<<endl;
         // cout<< "q - burst" << q.getCompletion_time()<<endl;
-
+        // cout<< " deque in deeue  PID- " << q.getProcess_id()<<endl;
+        
         
      
         if(front==rear){

@@ -80,26 +80,37 @@ public:
       int l = 0;
       Process p = pkb.deque(abc.arr);
       mno.enque(&p);
+      int ab = p.getProcess_id();
+                        // cout << " enqueue --PID  " << ab << endl;
+                        
       int time = 0;
       int key = 0;
       int stp = 0;
       //  cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
-
-      while ( pkb.isfull() != 1 && mno.isempty() != 1)
+      //   (mno.isempty() != 1  && pkb.isfull() != 1)
+      while ( !(mno.isempty() == 1  && pkb.isfull() == 1))
       {
-         if(pkb.isfull() !=1 && mno.isempty() != 1){
+         int c = mno.isempty();
+         // cout << "not empty++++++++++"<< c <<endl;
+         if(pkb.isfull() !=1 && mno.isempty() == 1){
             time++;
          }
          if (l == 0)
          {
             Process w = mno.deque();//---------------------------------------------11
-            cout<<"dddddddd"<<endl;
+            int ab = w.getProcess_id();
+                        // cout << " dequeue --PID  " << ab << endl;
+                        
             w.setResponse_time(w.getArrival_time());
             int temp = w.getBurst_time() - terminal_time;
             if (temp > 0)
             {
-               time += terminal_time;
+               
+               time = terminal_time+ w.getArrival_time();
                w.setBurst_time(temp);
+               int ab = w.getProcess_id();
+                        // cout << " enqueue --PID  " << ab << endl;
+                        
                mno.enque(&w); //---------------------------------------------------------------------3
             }
             else
@@ -120,30 +131,29 @@ public:
             {
                if (stp == 0)
                {
-                  while (key == 0)
-                  {
-                     cout << "hello" << endl;
+                  while (1){
+                  // {   cout<<"hello"<<endl;
+                     // cout << "hello" << endl;
                      Process j = pkb.deque(abc.arr);
                      int end = j.getProcess_id();
                      if (end == -1)
                      {
+                        // cout<<"heap end------------------------>"<<endl;
                         stp = -1;
                         break;
                      }
                      int aa = j.getArrival_time();
-                     cout << "j-arrivaltime" << aa << endl;
-                     if (aa < time)
+                     
+                     if (j.getArrival_time()< time)
                      {
                         int ab = j.getProcess_id();
-                        cout << "j-processid" << ab << endl;
+                        // cout << " enqueue --PID  " << ab << endl;
                         mno.enque(&j); //------------------------------------------------------------------2
-                        // time += terminal_time;
+                        
                      }
                      else
                      {
                         pkb.reverse(abc.arr);
-                        key = -1;
-
                         break;
                      }
                   }
@@ -151,24 +161,30 @@ public:
             }
 
             Process curr = mno.deque();//-------------------------------12
-            cout<< "dddd"<<endl;
+            int ab = curr.getProcess_id();
+            // cout << " dequeue--PID  " << ab<< endl;
+
+           
             int tempp = curr.getResponse_time();
             if (tempp == 0)
             {
                curr.setResponse_time(time);
             }
             time += terminal_time;
-             cout << "time--> " << time << endl;
+            //  cout << "time--> " << time << endl;
             int temp = curr.getBurst_time() - terminal_time;
+               //  curr.setBurst_time(curr.getBurst_time() - terminal_time);
             if (temp > 0)
             {
-
+                 curr.setBurst_time(curr.getBurst_time() - terminal_time);
+               // curr.setBurst_time(temp);
               
-               curr.setBurst_time(temp);
                int kl = curr.getBurst_time();
-               cout << "current.bursttime" << kl << endl;
-               cout << "enqueue" << endl;
-
+               // cout << "current.bursttime" << kl << endl;
+               // cout << "enqueue" << endl;
+                  int ab = curr.getProcess_id();
+                        // cout << " ---------------------------------------------enqueue --PID  " << ab << endl;
+                       
                mno.enque(&curr); //------------------------------------------------------------1
             }
             else
@@ -179,6 +195,22 @@ public:
                int ll = curr.getTurn_around_time();
                curr.setWaiting_time(curr.getCompletion_time() - ll);
                // cout << curr.getProcess_id()<< "    " << curr.getArrival_time() << "    " << curr.getBurst_time() << "    " << curr.getCompletion_time() << "    " << curr.getTurn_around_time() << "    " << curr.getWaiting_time() << "    " << curr.getResponse_time() << endl;
+
+               int aa = curr.getBurst_time();
+         cout << "    "<<aa;
+         aa = curr.getProcess_id();
+           cout << "    "<<aa;
+         aa = curr.getArrival_time();
+           cout << "    "<<aa;
+         aa = curr.getCompletion_time();
+           cout << "    "<<aa;
+         aa = curr.getTurn_around_time();
+         cout << "    "<<aa;
+         aa = curr.getResponse_time();
+           cout << "    "<<aa;
+         aa = curr.getWaiting_time();
+           cout << "    "<<aa <<endl;
+
             }
          }
       }
