@@ -9,7 +9,8 @@ using namespace std;
 
 
 class Simulator {
-
+        
+        
         int file1;
         int file2;
         Scheduler abc;
@@ -31,12 +32,16 @@ class Simulator {
         {
         case 1:
             abc.FCFS();
+            saveProcesses();
             break;
         case 2:
             abc.RoundRobin();
+            saveProcesses();
             break;
         case 3:
             abc.CFS();
+            saveProcesses();
+
             break;
         
         default:
@@ -51,13 +56,13 @@ class Simulator {
             dup2(file1, STDOUT_FILENO);
             cout<<"save process"<<endl;
            
-        }
+    }
     void saveStatus(){
             file2 = open("status.txt", O_WRONLY | O_CREAT);
             dup2(file2, STDOUT_FILENO);
             cout<<"save status"<<endl;
             
-        }
+    }
 
 
 };
