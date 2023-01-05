@@ -1,15 +1,15 @@
 
 using namespace std;
 #include<iostream>
-#include "MinHeap.h"
+#include "Process.h"
 #include <bits/stdc++.h>
-class Queue: public MinHeap{
+class Queue{
 
     int front,rear;// rare- piche wala
     int capacity;
-//    Process *arrq;
+   Process *arrq;
     public:
-     Process *arrq = (Process *)malloc(capacity * sizeof(Process));
+    
     Queue(){
 
     }
@@ -18,8 +18,8 @@ class Queue: public MinHeap{
         front = -1;
         rear = -1;
         capacity= x;
-        arr = (Process *)malloc(x * sizeof(Process));
-        cout << "queue ban gya" << endl;
+        arrq = (Process *)malloc(x * sizeof(Process));
+        // cout << "queue ban gya" << endl;
     }
       
     //  Process *arr = (Process *)malloc(size * sizeof(Process));

@@ -1,10 +1,23 @@
 using namespace std;
 #include <iostream>
+#include <cstdio>
 
 #include "Queue.h"
-#include <bits/stdc++.h>
 
-class Scheduler : public Queue
+// #include "Process.h"
+
+#include "MinHeap.h"
+
+#include "Process_Creator.h"
+
+#include <bits/stdc++.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<stdio.h>
+#include<string.h>
+#include<fcntl.h>
+
+class Scheduler
 {
 public:
    Scheduler()
@@ -12,10 +25,16 @@ public:
    }
 
    void FCFS()
-   {
+   {  
+      FILE* file;
       int size;
+      int file1;
+      int time = 0;
       cout << "enter size" << endl;
       cin >> size;
+      file1 = open("processes.txt",O_WRONLY | O_CREAT, 0777);
+            dup2(file1, STDOUT_FILENO);
+      
       Process_Creator abc(size);
       MinHeap pkb(size);
 
@@ -30,21 +49,33 @@ public:
            << "  TAT"
            << "  WT"
            << "  RT" << endl;
+              file = fopen("status.txt","a");
       while (l < size)
       {
 
          Process p = pkb.deque(abc.arr);
+       
+         
 
          if (l == 0)
-         {
+         {    time = p.getArrival_time();
+            fprintf(file, " %d %s %d %s \n",time, "PID  ",p.getProcess_id(), "  Arrived");
+            for(int i = 1; i < p.getBurst_time(); i++){
+               
+             fprintf(file, " %d %s %d %s \n",time, "PID  ",p.getProcess_id(), "  Running");
+             time++;
+            }
             p.setCompletion_time(p.getBurst_time());
             p.setTurn_around_time(p.getCompletion_time() - p.getArrival_time());
             p.setWaiting_time(p.getCompletion_time() - p.getBurst_time());
             p.setResponse_time(p.getCompletion_time() - p.getBurst_time());
          }
          else
-         {
-
+         {  fprintf(file, " %d %s %d %s \n",time, "PID  ",p.getProcess_id(), "  Arrived");
+            for(int i = 1; i < p.getBurst_time(); i++){
+               time++;
+             fprintf(file, " %d %s %d %s \n",time, "PID  ",p.getProcess_id(), "  Running");
+            }
             p.setCompletion_time(p.getBurst_time() + prev.getCompletion_time());
             p.setTurn_around_time(p.getCompletion_time() - p.getArrival_time());
             p.setWaiting_time(p.getCompletion_time() - p.getBurst_time());
@@ -52,20 +83,18 @@ public:
          }
          prev = p;
          l++;
-
-         // size--;
+         
+         fprintf(file, " %d %s %d %s \n",time,"PID  ",p.getProcess_id(), "  exit");
+         time++;
          cout << p.getProcess_id() << "    " << p.getArrival_time() << "    " << p.getBurst_time() << "    " << p.getCompletion_time() << "    " << p.getTurn_around_time() << "    " << p.getWaiting_time() << "    " << p.getResponse_time() << endl;
       }
 
-      //  cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
-      // for(int i = 0; i < k; i++){
-      //    // cout << "print" << endl;
-      //    cout << abc.arr[i].getProcess_id()<< "    " << abc.arr[i].getArrival_time() << "    " << abc.arr[i].getBurst_time() << "    " << abc.arr[i].getCompletion_time() << "    " << abc.arr[i].getTurn_around_time() << "    " << abc.arr[i].getWaiting_time() << "    " << abc.arr[i].getResponse_time() << endl;
-      // }
+    fclose(file);  
    }
 
    void RoundRobin()
-   {
+   {  
+       int file1;
       int sizer;
       cout << "enter size" << endl;
       cin >> sizer;
@@ -73,6 +102,9 @@ public:
       int terminal_time;
       cout << "enter terminal_time" << endl;
       cin >> terminal_time;
+      file1 = open("processes.txt",O_WRONLY | O_CREAT, 0777);
+            dup2(file1, STDOUT_FILENO);
+            cout<<"save process"<<endl;
       int ppp;
       Queue mno(sizer);
       MinHeap pkb(sizer);
@@ -86,7 +118,7 @@ public:
       int time = 0;
       int key = 0;
       int stp = 0;
-      //  cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
+       cout << "PId" << "  AT" << "  BT" << "    CT" << "    TAT" << "   WT" << "   RT"<< endl;
       //   (mno.isempty() != 1  && pkb.isfull() != 1)
       while ( !(mno.isempty() == 1  && pkb.isfull() == 1))
       {
@@ -164,13 +196,13 @@ public:
             int ab = curr.getProcess_id();
             // cout << " dequeue--PID  " << ab<< endl;
 
-           
+           time += terminal_time;
             int tempp = curr.getResponse_time();
             if (tempp == 0)
             {
                curr.setResponse_time(time);
             }
-            time += terminal_time;
+            
             //  cout << "time--> " << time << endl;
             int temp = curr.getBurst_time() - terminal_time;
                //  curr.setBurst_time(curr.getBurst_time() - terminal_time);
@@ -196,11 +228,11 @@ public:
                curr.setWaiting_time(curr.getCompletion_time() - ll);
                // cout << curr.getProcess_id()<< "    " << curr.getArrival_time() << "    " << curr.getBurst_time() << "    " << curr.getCompletion_time() << "    " << curr.getTurn_around_time() << "    " << curr.getWaiting_time() << "    " << curr.getResponse_time() << endl;
 
-               int aa = curr.getBurst_time();
-         cout << "    "<<aa;
-         aa = curr.getProcess_id();
-           cout << "    "<<aa;
+               int aa = curr.getProcess_id();
+         cout<<aa;
          aa = curr.getArrival_time();
+           cout << "    "<<aa;
+         aa = curr.getBurst_time();
            cout << "    "<<aa;
          aa = curr.getCompletion_time();
            cout << "    "<<aa;
@@ -217,6 +249,6 @@ public:
    }
 
    void CFS(){
-      
+
    }
 };

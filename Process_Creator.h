@@ -1,23 +1,24 @@
 using namespace std;
 #include<iostream>
-#include "Process.h"
+// #include "Process.h"
 #include <cstdlib>
 #include <bits/stdc++.h>
-class Process_Creator : public Process
+class Process_Creator 
 {
     int size;
     int N = 10;
    
-    
+     
 
     public:
-    Process *arr = (Process *)malloc(size * sizeof(Process));
+    Process *arr;
     Process_Creator(){
         
     }
     Process_Creator(int x){
         size = x;
         int i = 0;
+        arr = (Process *)malloc(size * sizeof(Process));
          
          cout << "PId" << "  AT" << "  BT" << "  CT" << "  TAT" << "  WT" << "  RT"<< endl;
           while(i < size){

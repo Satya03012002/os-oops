@@ -6,9 +6,9 @@ using namespace std;
 #include<stdio.h>
 #include<string.h>
 #include<fcntl.h>
-#include"Scheduler.h"
 
-class Simulator :  public Scheduler{
+
+class Simulator {
 
         int file1;
         int file2;
@@ -47,13 +47,15 @@ class Simulator :  public Scheduler{
 
     }
     void saveProcesses(){
-            file1 = open("processes.txt",O_WRONLY);
+            file1 = open("processes.txt",O_WRONLY | O_CREAT, 0777);
             dup2(file1, STDOUT_FILENO);
+            cout<<"save process"<<endl;
            
         }
     void saveStatus(){
-            file2 = open("status.txt", O_WRONLY);
+            file2 = open("status.txt", O_WRONLY | O_CREAT);
             dup2(file2, STDOUT_FILENO);
+            cout<<"save status"<<endl;
             
         }
 

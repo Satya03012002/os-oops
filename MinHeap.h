@@ -1,10 +1,10 @@
 using namespace std;
 #include <iostream>
-#include "Process_Creator.h"
+// #include "Process.h"
 #include <bits/stdc++.h>
 
 
-class MinHeap :public  Process_Creator
+class MinHeap
 {
 
     
@@ -97,9 +97,9 @@ class MinHeap :public  Process_Creator
         {
             stop = -1;
 
-            printf("arr is already empty\n");
+            // printf("arr is already empty\n");
             Process null;
-             cout << "return from size" <<endl; 
+            //  cout << "return from size" <<endl; 
              null.setProcess_id(-1);
             return null;
 
