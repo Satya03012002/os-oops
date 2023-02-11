@@ -9,9 +9,10 @@ class Process_Creator
     int N = 10;
    
      
-
+    protected:
+       Process *arr;
     public:
-    Process *arr;
+//     Process *arr;
     Process_Creator(){
         
     }
